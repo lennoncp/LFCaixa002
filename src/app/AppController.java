@@ -23,13 +23,14 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class AppController implements Initializable {
 	
 	private int contaTamanhoVBApostas;
 	private Aposta aposta;
-	private List<Aposta> apostas;
+	private List<Aposta> apostas = new ArrayList<Aposta>();
 	private Sorteio sorteio = new Sorteio();;
 	
 	ObservableList<TextField> fields = FXCollections.observableArrayList();
@@ -43,27 +44,57 @@ public class AppController implements Initializable {
     @FXML
     private HBox hbDezenas;
     
+    @FXML
+    private TextField txfQtdDezenas = new TextField();
+    
+    @FXML
+    private TextField txfQtdImpares = new TextField();
+    
+    @FXML
+    private TextField txfQtdApostas = new TextField();
+    
     private Button btnGerar = new Button("Gerar");
     private Button btnLimpar = new Button("Limpar");
     
-    int qtdDesenas = 18;
+    private int indexAposta = 0;
+    
+    private Label lb;
+    private int contaApostas ;
 
     void gerarAposta() {
+    	contaApostas = 0;
     	
-    	/*List<Integer> dez = new ArrayList<Integer>();
+    	while(contaApostas < Integer.valueOf(txfQtdApostas.getText())) {//TODO WHILE
     	
-    	for(int i = 1; i <= 18; i++) {
-    		dez.add(i);
+    	if(Integer.valueOf(txfQtdImpares.getText()) == 0) {
+    		aposta = sorteio.gerarAposta(Integer.valueOf(txfQtdDezenas.getText()));
+    	}else {
+    		aposta = sorteio.gerarAposta(Integer.valueOf(txfQtdDezenas.getText()), Integer.valueOf(txfQtdImpares.getText()));
     	}
     	
-    	aposta = new Aposta();*/
+    	//TODO 
+    	System.out.println("Conparador: " + aposta.comparador(aposta, apostas));
+
+    	if(aposta.comparador(aposta, apostas) > 12) {
+    		continue;
+    	}
+    		
     	
-    	aposta = sorteio.gerarAposta(qtdDesenas);
+    	lb = new Label(String.valueOf(indexAposta));
+    	//lb.setVisible(false);
+    	lb.setStyle("-fx-border-color: #FFF");
+    	apostas.add(indexAposta++, aposta);
+    	
+    	//TODO almentar vapostas
+    	if(apostas.size() > 10) {
+    		vbApostas.setPrefHeight(vbApostas.getPrefHeight() + 50);
+    	}
+    	
     	
     	HBox hb = new HBox();
     	
     	ObservableList<Label> labels = FXCollections.observableArrayList();
-    	for(int i = 0; i < qtdDesenas; i++) {
+    	for(int i = 0; i < Integer.valueOf(txfQtdDezenas.getText()); i++) {
     		labels.add(i, new Label(aposta.getDezenas().get(i).toString()));
     	}
     	
@@ -73,18 +104,25 @@ public class AppController implements Initializable {
     	hb.setAlignment(Pos.CENTER);
     	hb.setSpacing(2);
     	hb.setPrefHeight(50);
+    	hb.getChildren().add(lb);
     	hb.getChildren().addAll(labels);
     	hb.getChildren().add(btnExcluir);
 
         vbApostas.getChildren().add(hb);
         vbApostas.setPrefWidth(spApostas.getWidth() - 20);
         
-        System.out.println("SPWIdth: " + spApostas.getWidth() + " vbApostaWidth: " + vbApostas.getPrefWidth());
+      //TODO  System.out.println("SPWIdth: " + spApostas.getWidth() + " vbApostaWidth: " + vbApostas.getPrefWidth());
     	
         btnExcluir.setOnAction(new EventHandler<ActionEvent>() {	
 			@Override
 			public void handle(ActionEvent event) {
 				vbApostas.getChildren().remove(hb);	
+				
+				//Remove da lista de apostas
+				Label lb = (Label) hb.getChildren().get(0);
+				apostas.remove(apostas.get(Integer.valueOf(lb.getText())));
+				System.out.println(apostas.toString());
+				
 				
 				 if(contaTamanhoVBApostas > vbApostas.getPrefHeight()) {
 					   vbApostas.setPrefHeight(vbApostas.getPrefHeight() - 50);
@@ -92,7 +130,10 @@ public class AppController implements Initializable {
 			}
 		});
     	
-
+      contaApostas++; //Conta as apostas feitas.  
+      }//TODO WHILE
+    	
+    	System.out.println(apostas.toString());
     }
 
 	@Override
