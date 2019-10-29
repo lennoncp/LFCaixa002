@@ -12,9 +12,21 @@
 	-fx-border-radius: 15;
 }
 
+.lbcontagem{
+	-fx-alignment: center ;
+	-fx-border-color: #9AC22A;
+	-fx-pref-width: 60px;
+	-fx-pref-height: 30px;
+	
+	-fx-text-fill: #9AC22A;
+	-fx-font-size: 12px;
+	
+	-fx-border-radius: 15;
+}
+
 .button{
 	-fx-alignment: center ;
-	-fx-pref-width: 55px;
+
 	-fx-pref-height: 40px;
 }
 
@@ -22,4 +34,8 @@
 	-fx-alignment: center ;
 	-fx-pref-width: 40px;
 	-fx-pref-height: 40px;
+}
+
+.hbmargin{
+	-fx-alignment: center ;
 }

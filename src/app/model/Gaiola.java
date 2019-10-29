@@ -23,7 +23,8 @@ public class Gaiola {
 	public Integer getBola() {
 	//TODO	System.out.println(dezenas.size());
 		
-		int index = rand.nextInt(dezenas.size()-1);
+		//int index = rand.nextInt(dezenas.size()-1);
+		int index = rand.nextInt(dezenas.size());
 		int bola = dezenas.get(index);
 		
 		dezenas.remove(index);
@@ -39,7 +40,8 @@ public class Gaiola {
 		
 		while(par) {
 			
-			index = rand.nextInt(dezenas.size()-1);
+			//int index = rand.nextInt(dezenas.size()-1);
+			index = rand.nextInt(dezenas.size());
 			bola = dezenas.get(index);
 			
 			if(bola % 2 != 0)

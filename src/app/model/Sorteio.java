@@ -52,5 +52,7 @@ public class Sorteio {
 		aposta.setDezenas(a);
 		return aposta;
 	}
+	
+	
 
 }
