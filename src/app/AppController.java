@@ -154,7 +154,7 @@ public class AppController implements Initializable {
     	
     	System.out.println(" ContPrimos FORA: " + contPrimos + " ");
     	
-    	List<Integer> inPrimos = Arrays.asList(4,5,6,7);
+    	List<Integer> inPrimos = Arrays.asList(5,6,7);
     	if(!inPrimos.contains(contPrimos)) {
     		System.out.println(" ContPrimos DENTRO: " + contPrimos + " ");
     		continue;
@@ -316,6 +316,7 @@ public class AppController implements Initializable {
 				
 				vbPrincipal.getChildren().remove(1);
 				hbDezContagem.getChildren().clear();
+				hbDezPorcentagens.getChildren().clear();
 				vbApostas.getChildren().clear();
 				apostas.clear();
 				indexAposta = 0;
